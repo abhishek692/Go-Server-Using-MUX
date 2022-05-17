@@ -19,6 +19,8 @@ type Book struct {
 	AUTHOR *AUTHOR `json:"author"`
 }
 
+// creating a struct for authors
+
 type AUTHOR struct {
 	FirstName string `json:"firstname"`
 	LastName  string `json:"lastname"`
@@ -26,7 +28,7 @@ type AUTHOR struct {
 
 // initialize books variable as a slie of book type
 
-var books []Book
+var books []Book // creating a slice to store the books
 
 // creating routeHandler functions. Any routeHandler function takes a request and a response
 
@@ -53,8 +55,9 @@ func getBook(w http.ResponseWriter, r *http.Request) {
 
 	}
 	json.NewEncoder(w).Encode(&Book{})
-
 }
+
+// function for creating a new book
 
 func createBook(w http.ResponseWriter, r *http.Request) {
 
@@ -71,6 +74,8 @@ func createBook(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(book)
 
 }
+
+// function for updating book details
 
 func updateBook(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Conten-Type", "applicaton/json")
@@ -94,6 +99,7 @@ func updateBook(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(books)
 }
 
+// function to delete
 func deleteBook(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
@@ -111,7 +117,8 @@ func deleteBook(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if found == false {
-		fmt.Println("book not found") // how to display on postman
+		// fmt.Println("book not found") // how to display on postman
+		json.NewEncoder(w).Encode("Book not found.")
 		return
 	}
 	json.NewEncoder(w).Encode(books) // this means that the server will respond with all the books after deleting the book we requested
